@@ -1,0 +1,28 @@
+{
+    "name":"PWS_UpdateUserLocationReq",
+    "uri":"2547|29",
+    "toSname":"game_applogic",
+    "fromUid":"103570905",
+    "body":{
+        "seqId":"865424453136",
+        "uid":"116200006",
+        "info":[
+            {
+                "key":"country_code",
+                "value":"US"
+            },
+            {
+                "key":"city_name",
+                "value":""
+            },
+            {
+                "key":"longitude",
+                "value":"0"
+            },
+            {
+                "key":"latitude",
+                "value":"0"
+            }
+        ]
+    }
+}
