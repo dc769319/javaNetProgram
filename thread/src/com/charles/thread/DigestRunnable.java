@@ -8,22 +8,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * 继承Runnable接口实现多线程
  * @author Charles
  * @version 1.0
  */
-public class DigestThread extends Thread {
-
+public class DigestRunnable implements Runnable {
     private String filename;
 
-    public static void main(String[] args) {
-
-        for (String filename : args) {
-            DigestThread dt = new DigestThread(filename);
-            dt.start();
-        }
-    }
-
-    public DigestThread(String filename) {
+    public DigestRunnable(String filename) {
         this.filename = filename;
     }
 
@@ -33,7 +25,7 @@ public class DigestThread extends Thread {
             FileInputStream in = new FileInputStream(this.filename);
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             DigestInputStream dis = new DigestInputStream(in, md);
-            while (-1 != dis.read());
+            while (-1 != dis.read()) ;
             dis.close();
             byte[] digest = md.digest();
 
@@ -44,6 +36,13 @@ public class DigestThread extends Thread {
             System.out.println(strBuild);
         } catch (IOException | NoSuchAlgorithmException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    public static void main(String args[]) {
+        for (String filename : args) {
+            Thread t = new Thread(new DigestRunnable(filename));
+            t.start();
         }
     }
 }
