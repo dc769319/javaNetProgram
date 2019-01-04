@@ -15,6 +15,8 @@ public class DigestThreadCallback implements Runnable {
 
     private String filename;
 
+    private DigestCallbackInterface callback;
+
     @Override
     public void run() {
         try {
@@ -23,13 +25,20 @@ public class DigestThreadCallback implements Runnable {
             DigestInputStream dis = new DigestInputStream(in, md);
             while (-1 != dis.read()) ;
             String digest = DatatypeConverter.printHexBinary(md.digest());
-            DigestCallbackInterface.printCallback(this.filename, digest);
+            //通过调用引用的方法，实现回调
+            this.callback.printCallback(this.filename, digest);
         } catch (IOException | NoSuchAlgorithmException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public DigestThreadCallback(String filename) {
+    /**
+     * 注入文件名、主线程类的引用
+     * @param filename 文件名
+     * @param callback 主线程类的引用
+     */
+    DigestThreadCallback(String filename, DigestCallbackInterface callback) {
         this.filename = filename;
+        this.callback = callback;
     }
 }
