@@ -1,1 +1,4 @@
 .idea/
+out/
+stream/stream.iml
+thread/thread.iml
