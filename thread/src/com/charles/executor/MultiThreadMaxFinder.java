@@ -31,6 +31,9 @@ public class MultiThreadMaxFinder {
         Future<Integer> future1 = service.submit(task1);
         Future<Integer> future2 = service.submit(task2);
         //找出最大值
-        return Integer.max(future1.get(), future2.get());
+        int max = Integer.max(future1.get(), future2.get());
+        //有序关闭之前提交的任务
+        service.shutdown();
+        return max;
     }
 }
