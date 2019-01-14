@@ -2,3 +2,4 @@
 out/
 stream/stream.iml
 thread/thread.iml
+*.class
